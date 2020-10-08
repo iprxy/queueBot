@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.20",
     "telegraf": "^3.38.0"
   }
 }
