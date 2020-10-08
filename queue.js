@@ -9,10 +9,16 @@ class Queue {
 
   async _createTodayFile() {
     try {
+      await fs.stat('./files')
       await fs.writeFile(this._currentDateFile(), JSON.stringify(timeSheet))
       return this.getTodayFile()
     } catch (err) {
-      throw (err)
+      if (err.code === 'ENOENT') {
+        await fs.mkdir('./files')
+        return this._createTodayFile()
+      } else {
+        throw e
+      }
     }
   }
 
