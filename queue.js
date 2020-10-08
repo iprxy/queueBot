@@ -2,12 +2,12 @@ const fs = require('fs').promises
 const timeSheet = require('./utils/timesheet')
 
 class Queue {
-  _currentDateFile() {
+  _currentDateFile () {
     const currentDate = new Date()
-    return `./files/${currentDate.getDate()}-${new Date().getMonth()+1}-${currentDate.getFullYear()}.json`
+    return `./files/${currentDate.getDate()}-${new Date().getMonth() + 1}-${currentDate.getFullYear()}.json`
   }
 
-  async _createTodayFile() {
+  async _createTodayFile () {
     try {
       await fs.stat('./files')
       await fs.writeFile(this._currentDateFile(), JSON.stringify(timeSheet))
@@ -17,12 +17,12 @@ class Queue {
         await fs.mkdir('./files')
         return this._createTodayFile()
       } else {
-        throw e
+        throw err
       }
     }
   }
 
-  async getTodayFile() {
+  async getTodayFile () {
     try {
       const todayFile = await fs.readFile(this._currentDateFile(), 'utf-8')
       return JSON.parse(todayFile)
@@ -35,7 +35,7 @@ class Queue {
     }
   }
 
-  async setQueue(time, username) {
+  async setQueue (time, username) {
     const todayFile = await this.getTodayFile()
     if (!todayFile[time].length) {
       todayFile[time] = username
@@ -46,7 +46,7 @@ class Queue {
     }
   }
 
-  async removeQueue(time, username) {
+  async removeQueue (time, username) {
     const todayFile = await this.getTodayFile()
     if (todayFile[time].length && todayFile[time] === username) {
       todayFile[time] = ''

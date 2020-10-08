@@ -1,4 +1,4 @@
-module.exports = getKeyboard = (array, type, username) => {
+const getKeyboard = (array, type, username) => {
   const chunk = (arr, size) =>
     Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size)
@@ -16,3 +16,5 @@ module.exports = getKeyboard = (array, type, username) => {
   }
   return options
 }
+
+module.exports = getKeyboard

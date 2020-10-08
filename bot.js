@@ -8,14 +8,14 @@ const queue = new Queue()
 const getKeyboard = require('./utils/getKeyboard')
 
 bot.start(ctx => {
-  const msg = 
+  const msg =
     'Привет!\n' +
     'Я помогаю забронировать место в очереди.\n' +
     '🤖 /help — узнать команды'
   ctx.reply(msg)
 })
 bot.help(ctx => {
-  const msg =  
+  const msg =
     '✍ /queue — забронировать слот\n' +
     '🙅‍♂️ /cancel — отменить бронь\n' +
     '🆓 /slots — посмотреть свободные слоты'
@@ -49,7 +49,7 @@ bot.command('cancel', async (ctx) => {
 bot.command('slots', async (ctx) => {
   const todayData = await queue.getTodayFile()
   const slots = Object.keys(todayData)
-    .map(item => `<b>${item}</b>: ${todayData[item].length ? todayData[item] : 'свободно' }`)
+    .map(item => `<b>${item}</b>: ${todayData[item].length ? todayData[item] : 'свободно'}`)
     .join('\n')
   ctx.reply(slots, { parse_mode: 'HTML' })
 })
@@ -64,17 +64,17 @@ bot.on('callback_query', async (ctx) => {
 
   if (type === 'set') {
     const setTime = await queue.setQueue(time, username)
-    const messageText = !setTime ?
-      '❌ Это время уже занято' :
-      `✅ Забронировал на ${time}\n` +
+    const messageText = !setTime
+      ? '❌ Это время уже занято'
+      : `✅ Забронировал на ${time}\n` +
       '🙅‍♂️ /cancel — отменить бронь\n' +
       '🆓 /slots — посмотреть свободные слоты'
     ctx.telegram.editMessageText(chatId, messageId, '', messageText)
   } else if (type === 'cancel') {
     const cancelTime = await queue.removeQueue(time, username)
-    const messageText = !cancelTime ?
-      '❌ Ты пытаешься отменить не своё время, либо это время свободно.' :
-      `✅ Отменил слот на ${time}\n` +
+    const messageText = !cancelTime
+      ? '❌ Ты пытаешься отменить не своё время, либо это время свободно.'
+      : `✅ Отменил слот на ${time}\n` +
       '✍ /queue — забронировать слот\n' +
       '🆓 /slots — посмотреть свободные слоты'
     ctx.telegram.editMessageText(chatId, messageId, '', messageText)

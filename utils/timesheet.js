@@ -1,4 +1,4 @@
-module.exports = timeSheet = {
+const timeSheet = {
   '09:00': '',
   '09:30': '',
   '10:00': '',
@@ -25,3 +25,5 @@ module.exports = timeSheet = {
   '20:30': '',
   '21:00': ''
 }
+
+module.exports = timeSheet
