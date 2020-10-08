@@ -1,6 +1,8 @@
-const _ = require('lodash')
-
 module.exports = getKeyboard = (array, type, username) => {
+  const chunk = (arr, size) =>
+    Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+      arr.slice(i * size, i * size + size)
+    )
   const keyboardButtons = array.map(item => {
     return {
       text: item,
@@ -9,7 +11,7 @@ module.exports = getKeyboard = (array, type, username) => {
   })
   const options = {
     reply_markup: JSON.stringify({
-      inline_keyboard: _.chunk(keyboardButtons, 5)
+      inline_keyboard: chunk(keyboardButtons, 5)
     })
   }
   return options
