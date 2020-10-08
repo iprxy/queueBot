@@ -55,7 +55,6 @@ bot.command('slots', async (ctx) => {
 })
 
 bot.on('callback_query', async (ctx) => {
-  console.log(ctx.callbackQuery)
   const messageId = ctx.callbackQuery.message.message_id
   const chatId = ctx.callbackQuery.message.chat.id
   const data = ctx.callbackQuery.data.split('|')
